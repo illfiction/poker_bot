@@ -32,15 +32,11 @@ def flop_probability(pocket_cards,flop_cards):\
         remaining_cards.remove(card1)
         for card2 in remaining_cards:
             all_open_cards = opened_cards.union(set([card1, card2]))
+            # set that contains one possible cases with 2 random cards to fulfill 7 cards that are visible to player
+            # use that set to check if 5 best cards for a hand or not in order of hands
+
+            print("ABC",all_open_cards)
+            #TODO:
 
             # 2 diff cards from remaining cards to find probabilty
 
-def flush(card_set):
-    suit_counts = {suit: 0 for suit in "shdc"}  # Initialize suit count dictionary
-
-    for card in card_set:
-        suit_counts[card.suit] += 1  # Increment suit count
-
-    max_suit_count = max(suit_counts.values())  # Find the highest suit count
-
-    return max_suit_count >= 5
