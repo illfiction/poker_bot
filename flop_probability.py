@@ -46,7 +46,7 @@ def flop_probability(pocket_cards,flop_cards):
         remaining_cards.remove(card1)
         for card2 in remaining_cards:
             all_open_cards = opened_cards.union(set([card1, card2]))
-            print("NEW CASE with cards:",all_open_cards)
+            print("NEW CASE with cards:",opened_cards,card1,card2)
             # set that contains one possible cases with 2 random cards to fulfill 7 cards that are visible to player
             # use that set to check if 5 best cards for a hand or not in order of hands
             # 2 diff cards from remaining cards to find probability
@@ -54,10 +54,10 @@ def flop_probability(pocket_cards,flop_cards):
             total_count += 1 #TOTAL COUNT HAS BEEN INCREMENTED.
 
             is_flush = flush_checker(all_open_cards)
-            print(is_flush)
+            print("flush:",is_flush)
             print(straight_checker(all_open_cards))
             is_straight = (straight_checker(all_open_cards) != 0)
-            print(is_straight)
+            print("straight:",is_straight)
             is_royal_straight = (straight_checker(all_open_cards) == 2)
             '''
                 used this way just so it is more efficient as flush straight are checked multiple times as there are many sub cases
@@ -98,3 +98,5 @@ def flop_probability(pocket_cards,flop_cards):
 
     print(hands_tally_counter)
     print(total_count)
+
+
