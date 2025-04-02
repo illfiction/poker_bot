@@ -10,8 +10,8 @@ input_str = "1s 2c"
 pocket_cards = parse_cards(input_str)
 # print(pocket_cards[0])
 
-# preflop_probability
-#TODO : calculate preflop probabilty
+# pre-flop_probability
+#TODO : calculate pre-flop probability
 
 input_str = "2s 3c 4h"
 flop_cards = parse_cards(input_str)

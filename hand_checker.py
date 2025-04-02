@@ -13,21 +13,21 @@ def flush_checker(card_set):
 
 
 def straight_checker(card_set):
-    rank_values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
-                   'J': 11, 'Q': 12, 'K': 13, 'A': 14}  # Ace can also be 1 for A-2-3-4-5 straight
+    rank_values = {'1':1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
+                   'j': 11, 'q': 12, 'k': 13}  # Ace can also be 1 for A-2-3-4-5 straight
 
     ranks = sorted(set(rank_values[card.rank] for card in card_set))  # Get unique sorted ranks
 
     # Check for any 5-card consecutive sequence
     for i in range(len(ranks) - 4):
         if ranks[i + 4] - ranks[i] == 4:
-            return True
+            return 1
 
     # Special case: A-2-3-4-5 straight
-    if {14, 2, 3, 4, 5}.issubset(ranks):
-        return True
+    if {1, 10, 11, 12, 13,}.issubset(ranks):
+        return 2
 
-    return False
+    return 0
 
 
 def is_single_pair(card_set):
