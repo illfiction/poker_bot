@@ -32,7 +32,6 @@ def straight_checker(card_set):
 
 def is_single_pair(card_set):
     rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
-    print(rank_counts)
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
     return counts.count(2) == 1 and counts.count(1) == 5

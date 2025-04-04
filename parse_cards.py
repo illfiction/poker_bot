@@ -2,9 +2,9 @@
 from card import Card
 
 def parse_cards(input_str):
-    rank_map = {'a': '1','k': '13','q': '12','j': '11'}
+    rank_map = {'a': '1'}
 
-    valid_ranks = {'1','2','3','4','5','6','7','8','9','10','11','12','13'}
+    valid_ranks = {'1','2','3','4','5','6','7','8','9','10','j','q','k'}
     valid_suits = {'s','d','c','h'}
 
     input_cards = input_str.split()

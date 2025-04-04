@@ -14,6 +14,7 @@ pocket_cards = parse_cards(input_str)
 #TODO : calculate pre-flop probability
 
 input_str = "10s 3c 4h"
+# input_str = input("Enter flop cards:")
 flop_cards = parse_cards(input_str)
 # print(flop_cards)
 
