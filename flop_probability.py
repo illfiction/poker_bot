@@ -43,6 +43,7 @@ def flop_probability(pocket_cards,flop_cards):
 
 
     total_count = 0
+    total_total_count = 0
     win_tally_counter = 0
 
     for card1 in remaining_cards:
@@ -115,74 +116,74 @@ def flop_probability(pocket_cards,flop_cards):
             print("Remaining cards:",remaining_cards)
 
 
-            # for opp_card1 in remaining_cards:
-            #
-            #     if opp_card1 == card2 and opp_card1 == card1:
-            #         break
-            #
-            #     remaining_cards.remove(opp_card1)
-            #     for opp_card2 in remaining_cards:
-            #
-            #         if opp_card2 == card1 and opp_card2 == card2 and opp_card2 == opp_card1:
-            #             break
-            #
-            #         print(card1,opp_card1,card2,opp_card2)
-            #
-            #         print("Reaming cards:",remaining_cards)
-            #         flop_cards_set = set(flop_cards)
-            #
-            #         opp_hand = flop_cards_set.union(set([opp_card1, opp_card2, card1, card2]))
-            #         print("Opp hand:",opp_hand)
-            #         print("Opp cards:",flop_cards,opp_card1,opp_card2,card1,card2)
-            #
-            #         is_flush = flush_checker(opp_hand)
-            #         # print("flush:", is_flush)
-            #         # print(straight_checker(opp_hand))
-            #         is_straight = (straight_checker(opp_hand) != 0)
-            #         # print("straight:", is_straight)
-            #         is_royal_straight = (straight_checker(opp_hand) == 2)
-            #
-            #         opp_hand_rank = 0
-            #         print('Opp got')
-            #         if is_flush and is_royal_straight:
-            #             print('Royal Flush')
-            #             opp_hand_rank = 10
-            #         elif is_straight and is_flush:
-            #             print('Straight Flush')
-            #             opp_hand_rank = 9
-            #         elif is_four_of_a_kind(opp_hand):
-            #             print('Four of a Kind')
-            #             opp_hand_rank = 8
-            #         elif is_full_house(opp_hand):
-            #             print('Full House')
-            #             opp_hand_rank = 7
-            #         elif is_flush:
-            #             print('Flush')
-            #             opp_hand_rank = 6
-            #         elif is_straight:
-            #             print('Straight')
-            #             opp_hand_rank = 5
-            #         elif is_three_of_a_kind(opp_hand):
-            #             print('Three of a Kind')
-            #             opp_hand_rank = 4
-            #         elif is_two_pair(opp_hand):
-            #             print('Two Pair')
-            #             opp_hand_rank = 3
-            #         elif is_single_pair(opp_hand):
-            #             print('Single Pair')
-            #             opp_hand_rank = 2
-            #         else:
-            #             print('No Pair')
-            #             opp_hand_rank = 1
-            #
-            #         if user_hand_rank > opp_hand_rank:
-            #             print("User Won")
-            #             win_tally_counter += 1
-            #         elif user_hand_rank < opp_hand_rank:
-            #             print("User Lost")
-            #         else:
-            #             print("sort of Tie")
-            #             win_tally_counter += 0.5
+            for opp_card1 in remaining_cards:
+                if len({opp_card1,card2,card1}) < 3:
+                    print("duplicate",card1,card2,opp_card1)
+
+                else:
+                    for opp_card2 in remaining_cards:
+
+                        if len({opp_card1, opp_card2,card1 ,card2}) < 4:
+                            print("There are duplicate cards:",opp_card1,opp_card2,card1,card2)
+
+                        else:
+
+                            total_total_count += 1
+
+                            print("Reaming cards:",remaining_cards)
+                            flop_cards_set = set(flop_cards)
+
+                            opp_hand = flop_cards_set.union(set([opp_card1, opp_card2, card1, card2]))
+                            print("Opp hand:",opp_hand)
+                            print("Opp cards:",flop_cards,opp_card1,opp_card2,card1,card2)
+
+                            is_flush = flush_checker(opp_hand)
+                            # print("flush:", is_flush)
+                            # print(straight_checker(opp_hand))
+                            is_straight = (straight_checker(opp_hand) != 0)
+                            # print("straight:", is_straight)
+                            is_royal_straight = (straight_checker(opp_hand) == 2)
+
+                            opp_hand_rank = 0
+                            if is_flush and is_royal_straight:
+                                print('Opp got Royal Flush')
+                                opp_hand_rank = 10
+                            elif is_straight and is_flush:
+                                print('Opp got Straight Flush')
+                                opp_hand_rank = 9
+                            elif is_four_of_a_kind(opp_hand):
+                                print('Opp got Four of a Kind')
+                                opp_hand_rank = 8
+                            elif is_full_house(opp_hand):
+                                print('Opp got Full House')
+                                opp_hand_rank = 7
+                            elif is_flush:
+                                print('Opp got Flush')
+                                opp_hand_rank = 6
+                            elif is_straight:
+                                print('Opp got Straight')
+                                opp_hand_rank = 5
+                            elif is_three_of_a_kind(opp_hand):
+                                print('Opp got Three of a Kind')
+                                opp_hand_rank = 4
+                            elif is_two_pair(opp_hand):
+                                print('Opp got Two Pair')
+                                opp_hand_rank = 3
+                            elif is_single_pair(opp_hand):
+                                print('Opp got Single Pair')
+                                opp_hand_rank = 2
+                            else:
+                                print('Opp got No Pair')
+                                opp_hand_rank = 1
+
+                            if user_hand_rank > opp_hand_rank:
+                                print("User Won")
+                                win_tally_counter += 1
+                            elif user_hand_rank < opp_hand_rank:
+                                print("User Lost")
+                            else:
+                                print("sort of Tie")
+                                win_tally_counter += 0.5
 
     #end of for loops
 
@@ -191,5 +192,11 @@ def flop_probability(pocket_cards,flop_cards):
 
     final_probability = {key:value * 100 / total_count for key, value in hands_tally_counter.items()}
     print(final_probability)
+
+
+    print("Total Total Count:",total_total_count)
+
+    print("wintally:",win_tally_counter)
+    print("Prob of win:",win_tally_counter/total_total_count)
 
 
