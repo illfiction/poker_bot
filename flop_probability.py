@@ -1,21 +1,12 @@
 import numpy as np
 from deck import deck
 from hand_checker import flush_checker,straight_checker,is_two_pair,is_single_pair,is_full_house,is_four_of_a_kind,is_three_of_a_kind
+from tiebreaker import tiebreaker
+
 
 def flop_probability(pocket_cards,flop_cards):
 
     opened_cards_list = pocket_cards + flop_cards #all cards that are visible to user
-
-    # to check if cards are same
-    # for card1 in opened_cards_list:
-    #     opened_cards_list.remove(card1)
-    #     for card2 in opened_cards_list:
-    #         if card1 == card2:
-    #             print("ERROR: 2 cards are equal")
-    #             return -1
-    #     opened_cards_list.append(card1)
-    # TODO:make a better card checker to check if 2 cards are same
-
 
     opened_cards = set(opened_cards_list) #
     '''    
@@ -24,6 +15,10 @@ def flop_probability(pocket_cards,flop_cards):
     faster look up times due to not needing to loop 
     sets are also unordered
     '''
+
+    if len(opened_cards) != 5:
+        raise ValueError("Error: Invalid input detected!")
+    #checking if total no of cards given is proper
 
     remaining_cards = [card for card in deck if card not in opened_cards]
     print(remaining_cards)
@@ -40,7 +35,6 @@ def flop_probability(pocket_cards,flop_cards):
         'Single Pair': 0,
         'No Pair': 0
     }
-
 
     total_count = 0
     total_total_count = 0
@@ -144,7 +138,6 @@ def flop_probability(pocket_cards,flop_cards):
                             # print("straight:", is_straight)
                             is_royal_straight = (straight_checker(opp_hand) == 2)
 
-                            opp_hand_rank = 0
                             if is_flush and is_royal_straight:
                                 print('Opp got Royal Flush')
                                 opp_hand_rank = 10
@@ -197,6 +190,6 @@ def flop_probability(pocket_cards,flop_cards):
     print("Total Total Count:",total_total_count)
 
     print("wintally:",win_tally_counter)
-    print("Prob of win:",win_tally_counter/total_total_count)
+    print("Prob of win:",win_tally_counter * 100/total_total_count)
 
 
