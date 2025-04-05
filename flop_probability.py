@@ -124,7 +124,7 @@ def flop_probability(pocket_cards,flop_cards):
 
                             total_total_count += 1
 
-                            print("Reaming cards:",remaining_cards)
+                            print("Remaining cards:",remaining_cards)
                             flop_cards_set = set(flop_cards)
 
                             opp_hand = flop_cards_set.union(set([opp_card1, opp_card2, card1, card2]))
@@ -189,7 +189,7 @@ def flop_probability(pocket_cards,flop_cards):
 
     print("Total Total Count:",total_total_count)
 
-    print("wintally:",win_tally_counter)
+    print("Win tally:",win_tally_counter)
     print("Prob of win:",win_tally_counter * 100/total_total_count)
 
 
