@@ -24,7 +24,7 @@ def straight_checker(card_set):
             return 1
 
     # Special case: A-2-3-4-5 straight
-    if {1, 10, 11, 12, 13,}.issubset(ranks):
+    if {1, 10, 11, 12, 13,}.issubset(ranks)
         return 2
 
     return 0

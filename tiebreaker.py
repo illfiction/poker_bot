@@ -4,15 +4,34 @@
 from collections import Counter
 from parse_cards import parse_cards
 
+def high_card_checker(list1,list2,count):
+    print(count)
+    print(max(list1),max(list2))
+    if max(list1) > max(list2):
+        return 1
+    elif max(list1) < max(list2):
+        return 0
+    elif count < 5:
+        list1.remove(max(list1))
+        list2.remove(max(list2))
+
+        count += 1
+        return high_card_checker(list1,list2,count)
+    else:
+        return 0.5
 
 
 def high_card_tiebreaker(user_hand, opp_hand):
-    for i in range(min(len(user_hand),5)):
-        if max(user_hand).rank > max(opp_hand).rank:
-            return 1
-        elif min(user_hand).rank < min(opp_hand).rank:
-            return 0
-    return 0.5
+
+    user_rank_list = [int(card.rank) for card in user_hand]
+    opp_rank_list = [int(card.rank) for card in opp_hand]
+
+    print(user_rank_list)
+    print(opp_rank_list)
+    count = 0
+
+    return high_card_checker(user_rank_list, opp_rank_list, count)
+
 
 
 def one_pair_tiebreaker(user_hand, opp_hand):
@@ -93,11 +112,6 @@ def straight_tiebreaker(user_hand, opp_hand):
     opp_ranks = sorted(set(rank_values[card.rank] for card in opp_hand))
 
 
-
-
-
-
-
 def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if user looses
 
     if hand_rank == 10:     #Royal Flush
@@ -121,13 +135,11 @@ def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if u
     elif hand_rank == 1:    #High Card
         return high_card_tiebreaker(user_hand, opp_hand)
 
-
-
 if __name__ == '__main__':
-    input_str = input("Enter user hand: ")
+    input_str = "3h 5c 9s 10s 6c"
     user_hand = parse_cards(input_str)
 
-    input_str = input("Enter opp hand: ")
+    input_str = "8c 7s 9c 2s 5h"
     opp_hand = parse_cards(input_str)
 
     print(high_card_tiebreaker(user_hand, opp_hand))

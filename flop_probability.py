@@ -67,44 +67,44 @@ def flop_probability(pocket_cards,flop_cards):
 
                 if is_flush and is_royal_straight:
                     hands_tally_counter['Royal Flush'] += 1
-                    user_hand_rank = 10
+                    user_hand_score = 10
                     print('Royal Flush')
                 elif is_straight and is_flush:
                     hands_tally_counter['Straight Flush'] += 1
                     print('Straight Flush')
-                    user_hand_rank = 9
+                    user_hand_score = 9
                 elif is_four_of_a_kind(user_hand):
                     hands_tally_counter['Four of a Kind'] += 1
                     print('Four of a Kind')
-                    user_hand_rank = 8
+                    user_hand_score = 8
                 elif is_full_house(user_hand):
                     hands_tally_counter['Full House'] += 1
                     print('Full House')
-                    user_hand_rank = 7
+                    user_hand_score = 7
                 elif is_flush:
                     hands_tally_counter['Flush'] += 1
                     print('Flush')
-                    user_hand_rank = 6
+                    user_hand_score = 6
                 elif is_straight:
                     hands_tally_counter['Straight'] += 1
                     print('Straight')
-                    user_hand_rank = 5
+                    user_hand_score = 5
                 elif is_three_of_a_kind(user_hand):
                     hands_tally_counter['Three of a Kind'] += 1
                     print('Three of a Kind')
-                    user_hand_rank = 4
+                    user_hand_score = 4
                 elif is_two_pair(user_hand):
                     hands_tally_counter['Two Pair'] += 1
                     print('Two Pair')
-                    user_hand_rank = 3
+                    user_hand_score = 3
                 elif is_single_pair(user_hand):
                     hands_tally_counter['Single Pair'] += 1
                     print('Single Pair')
-                    user_hand_rank = 2
+                    user_hand_score = 2
                 else:
                     hands_tally_counter['No Pair'] += 1
                     print('No Pair')
-                    user_hand_rank = 1
+                    user_hand_score = 1
 
 
             print("Remaining cards:",remaining_cards)
@@ -140,39 +140,39 @@ def flop_probability(pocket_cards,flop_cards):
 
                             if is_flush and is_royal_straight:
                                 print('Opp got Royal Flush')
-                                opp_hand_rank = 10
+                                opp_hand_score = 10
                             elif is_straight and is_flush:
                                 print('Opp got Straight Flush')
-                                opp_hand_rank = 9
+                                opp_hand_score = 9
                             elif is_four_of_a_kind(opp_hand):
                                 print('Opp got Four of a Kind')
-                                opp_hand_rank = 8
+                                opp_hand_score = 8
                             elif is_full_house(opp_hand):
                                 print('Opp got Full House')
-                                opp_hand_rank = 7
+                                opp_hand_score = 7
                             elif is_flush:
                                 print('Opp got Flush')
-                                opp_hand_rank = 6
+                                opp_hand_score = 6
                             elif is_straight:
                                 print('Opp got Straight')
-                                opp_hand_rank = 5
+                                opp_hand_score = 5
                             elif is_three_of_a_kind(opp_hand):
                                 print('Opp got Three of a Kind')
-                                opp_hand_rank = 4
+                                opp_hand_score = 4
                             elif is_two_pair(opp_hand):
                                 print('Opp got Two Pair')
-                                opp_hand_rank = 3
+                                opp_hand_score = 3
                             elif is_single_pair(opp_hand):
                                 print('Opp got Single Pair')
-                                opp_hand_rank = 2
+                                opp_hand_score = 2
                             else:
                                 print('Opp got No Pair')
-                                opp_hand_rank = 1
+                                opp_hand_score = 1
 
-                            if user_hand_rank > opp_hand_rank:
+                            if user_hand_score > opp_hand_score:
                                 print("User Won")
                                 win_tally_counter += 1
-                            elif user_hand_rank < opp_hand_rank:
+                            elif user_hand_score < opp_hand_score:
                                 print("User Lost")
                             else:
                                 print("sort of Tie")
