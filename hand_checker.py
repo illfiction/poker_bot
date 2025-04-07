@@ -13,10 +13,9 @@ def flush_checker(card_set):
 
 
 def straight_checker(card_set):
-    rank_values = {'1':1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
-                   'j': 11, 'q': 12, 'k': 13}  # Ace can also be 1 for A-2-3-4-5 straight
+ # Ace can also be 1 for A-2-3-4-5 straight
 
-    ranks = sorted(set(rank_values[card.rank] for card in card_set))  # Get unique sorted ranks
+    ranks = sorted(set(card.rank for card in card_set))  # Get unique sorted ranks
 
     # Check for any 5-card consecutive sequence
     for i in range(len(ranks) - 4):
@@ -24,7 +23,7 @@ def straight_checker(card_set):
             return 1
 
     # Special case: A-2-3-4-5 straight
-    if {1, 10, 11, 12, 13,}.issubset(ranks)
+    if {2,3,4,5,14}.issubset(ranks):
         return 2
 
     return 0

@@ -2,9 +2,9 @@
 from card import Card
 
 def parse_cards(input_str):
-    rank_map = {'a': '1'}
+    rank_map = {'a': 14, '1': 14, 'j': 11, 'q': 12, 'k': 13}
 
-    valid_ranks = {'1','2','3','4','5','6','7','8','9','10','j','q','k'}
+    valid_ranks = {2,3,4,5,6,7,8,9,10,11,12,13,14}
     valid_suits = {'s','d','c','h'}
 
     input_cards = input_str.split()
@@ -14,8 +14,14 @@ def parse_cards(input_str):
         rank = input_card[:-1]
         suit = input_card[-1]
 
-        rank = rank_map.get(rank.lower(), rank)  # Convert rank if it's in rank_map
-        if rank.lower() not in valid_ranks or suit not in valid_suits:
+        rank = rank.lower()
+        if rank in rank_map:
+            rank = rank_map[rank]
+        else:
+            rank = int(rank)  # Convert rank if it's in rank_map
+
+
+        if rank not in valid_ranks or suit not in valid_suits:
             raise ValueError(f"Invalid card: {input_card}")
 
         output_card = Card(rank, suit)
@@ -23,3 +29,7 @@ def parse_cards(input_str):
 
     return parsed_cards
 
+if __name__ == "__main__":
+    input_str = "js 3c 4h"
+    output = parse_cards(input_str)
+    print(output)
