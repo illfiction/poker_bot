@@ -4,24 +4,29 @@
 from collections import Counter
 from parse_cards import parse_cards
 
-def
+def find_better_name(set1, set2, count):
+
+    list1 = [card.rank for card in set1]
+    list2 = [card.rank for card in set2]
+
+    for i in range(count):
+        print("i:",i)
+        print(max(list1),max(list2))
+        if max(list1) > max(list2):
+            return 1
+        elif max(list1) < max(list2):
+            return 0
+        list1.remove(max(list1))
+        list2.remove(max(list2))
+    return 0.5
 
 def high_card_tiebreaker(user_hand, opp_hand):
-
-    user_rank_list = [card.rank for card in user_hand]
-    opp_rank_list = [card.rank for card in opp_hand]
-
-    print(user_rank_list)
-    print(opp_rank_list)
     count = 5
-
-    return high_card_checker(user_rank_list, opp_rank_list, count)
-
+    return find_better_name(user_hand, opp_hand, count)
 
 
 def one_pair_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-
     opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
 
     for user_rank in user_rank_counts:
@@ -29,13 +34,12 @@ def one_pair_tiebreaker(user_hand, opp_hand):
             if user_rank == opp_rank:
                 return high_card_tiebreaker(user_hand, opp_hand)
             else:
-                count = 1
-                return high_card_checker(user_rank_counts, opp_rank_counts, count)
+                count = 3
+                return find_better_name(user_hand, opp_hand, count)
 
 
 def two_pair_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-
     opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
 
     user_pairs_list = []
@@ -54,10 +58,11 @@ def two_pair_tiebreaker(user_hand, opp_hand):
     for i in range(max(len(user_pairs_list), len(opp_pairs_list))):
         if max(user_pairs_list[i]) > max(opp_pairs_list[i]):
             return 1
-        elif min(user_pairs_list[i]) < min(opp_pairs_list[i]):
+        elif max(user_pairs_list[i]) < max(opp_pairs_list[i]):
             return 0
         else:
-            return high_card_tiebreaker(user_hand, opp_hand)
+            count = 1
+            return find_better_name(user_hand, opp_hand)
 
 
 def three_of_a_kind_tiebreaker(user_hand, opp_hand):
@@ -81,10 +86,11 @@ def three_of_a_kind_tiebreaker(user_hand, opp_hand):
     for i in range(max(len(user_triples_list), len(opp_triples_list))):
         if max(user_triples_list[i]) > max(opp_triples_list[i]):
             return 1
-        elif min(user_triples_list[i]) < min(opp_triples_list[i]):
+        elif max(user_triples_list[i]) < max(opp_triples_list[i]):
             return 0
         else:
-            return high_card_tiebreaker(user_hand, opp_hand)
+            count = 2
+            return find_better_name(user_hand, opp_hand)
 
 
 def straight_tiebreaker(user_hand, opp_hand):
@@ -120,12 +126,12 @@ def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if u
         return high_card_tiebreaker(user_hand, opp_hand)
 
 if __name__ == '__main__':
-    input_str = "3h 5c 9s 10s 5s"
+    input_str = "3h 5c 9s 10s 6s"
     user_hand = parse_cards(input_str)
 
-    input_str = "8c 7s 9c 2s 7h"
+    input_str = "3h 5c 9s 10s 6s"
     opp_hand = parse_cards(input_str)
 
-    print(one_pair_tiebreaker(user_hand, opp_hand))
+    print(high_card_tiebreaker(user_hand, opp_hand))
 
 
