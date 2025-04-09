@@ -49,14 +49,16 @@ def two_pair_tiebreaker(user_hand, opp_hand):
     for user_rank in user_rank_counts:
         if user_rank == 2:
             user_pairs_list.append(user_rank)
-            user_hand.remove(user_rank)
+            to_remove = {card for card in user_hand if card.rank == user_rank}
+            user_hand.difference_update(to_remove)
 
     for opp_rank in opp_rank_counts:
         if opp_rank == 2:
             opp_pairs_list.append(opp_rank)
-            opp_hand.remove(opp_rank)
+            to_remove = {card for card in opp_hand if card.rank == opp_rank}
+            opp_hand.difference_update(to_remove)
 
-    for i in range(max(len(user_pairs_list), len(opp_pairs_list))):
+    for i in range(min(len(user_pairs_list), len(opp_pairs_list))):
         if max(user_pairs_list[i]) > max(opp_pairs_list[i]):
             return 1
         elif max(user_pairs_list[i]) < max(opp_pairs_list[i]):
@@ -75,19 +77,21 @@ def three_of_a_kind_tiebreaker(user_hand, opp_hand):
     opp_triples_list = []
 
     for user_rank in user_rank_counts:
-        if user_rank.value == 3:
+        if user_rank == 3:
             user_triples_list.append(user_rank)
-            user_hand.remove(user_rank)
+            to_remove = {card for card in user_hand if card.rank == user_rank}
+            user_hand.difference_update(to_remove)
 
     for opp_rank in opp_rank_counts:
-        if opp_rank.value == 3:
+        if opp_rank == 3:
             opp_triples_list.append(opp_rank)
-            opp_hand.remove(opp_rank)
+            to_remove = {card for card in opp_hand if card.rank == opp_rank}
+            opp_hand.difference_update(to_remove)
 
-    for i in range(max(len(user_triples_list), len(opp_triples_list))):
-        if max(user_triples_list[i]) > max(opp_triples_list[i]):
+    for i in range(min(len(user_triples_list), len(opp_triples_list))):
+        if max(user_triples_list) > max(opp_triples_list):
             return 1
-        elif max(user_triples_list[i]) < max(opp_triples_list[i]):
+        elif max(user_triples_list) < max(opp_triples_list):
             return 0
         else:
             count = 2
