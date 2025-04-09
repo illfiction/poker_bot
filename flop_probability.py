@@ -176,7 +176,7 @@ def flop_probability(pocket_cards,flop_cards):
                                 print("User Lost")
                             else:
                                 print("sort of Tie")
-                                win_tally_counter += 0.5
+                                win_tally_counter += tiebreaker(user_hand, opp_hand, user_hand_score) or 0.0
 
     #end of for loops
 
