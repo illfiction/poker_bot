@@ -1,13 +1,16 @@
 # Start of PokerBotv1
 import sys
+import time
+
+start = time.time()
 
 from card import Card
 from parse_cards import parse_cards
 from  flop_probability import flop_probability
 
 # pre-flop
-input_str = input("Enter your cards:")
-# input_str = "qc 3c"
+input_str = "ah kh"
+# input_str = input("Enter your cards:")
 pocket_cards = parse_cards(input_str)
 # print(pocket_cards[0])
 if len(pocket_cards) != 2:
@@ -18,8 +21,8 @@ if len(pocket_cards) != 2:
 #TODO : calculate pre-flop probability
 #pre-flop probability will take too long to run
 
-# input_str = "4d js 10c"
-input_str = input("Enter flop cards:")
+input_str = "qh jh 10h"
+# input_str = input("Enter flop cards:")
 flop_cards = parse_cards(input_str)
 if len(flop_cards) != 3:
     print("Number of flop cards is not 3!")
@@ -28,3 +31,6 @@ if len(flop_cards) != 3:
 # print(flop_cards)
 
 flop_prob = flop_probability(pocket_cards,flop_cards)
+
+end = time.time()
+print(f"Runtime: {end - start:.4f} seconds")

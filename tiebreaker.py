@@ -59,9 +59,9 @@ def two_pair_tiebreaker(user_hand, opp_hand):
             opp_hand.difference_update(to_remove)
 
     for i in range(min(len(user_pairs_list), len(opp_pairs_list))):
-        if max(user_pairs_list[i]) > max(opp_pairs_list[i]):
+        if max(user_pairs_list) > max(opp_pairs_list):
             return 1
-        elif max(user_pairs_list[i]) < max(opp_pairs_list[i]):
+        elif max(user_pairs_list) < max(opp_pairs_list):
             return 0
         else:
             count = 1
