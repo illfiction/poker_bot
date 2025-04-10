@@ -1,7 +1,28 @@
 from collections import Counter
 
 
-def flush_checker(card_set):
+
+def is_royal_flush(card_set):
+    suit_counts = {suit: 0 for suit in "shdc"}  # Initialize suit count dictionary
+
+    for card in card_set:
+        suit_counts[card.suit] += 1  # Increment suit count
+
+    max_suit = max(suit_counts, key=suit_counts.get)
+
+    flush_cards_ranks = set()
+    for card in card_set:
+        if card.suit == max_suit:
+            flush_cards_ranks.add(card.rank)
+
+
+    if {14, 13, 12, 11, 10}.issubset(flush_cards_ranks):
+        return 1
+    return 0
+
+
+
+def is_flush(card_set):
     suit_counts = {suit: 0 for suit in "shdc"}  # Initialize suit count dictionary
 
     for card in card_set:
@@ -12,19 +33,19 @@ def flush_checker(card_set):
     return max_suit_count >= 5
 
 
-def straight_checker(card_set):
+def is_straight(card_set):
  # Ace can also be 1 for A-2-3-4-5 straight
 
     ranks = sorted(set(card.rank for card in card_set))  # Get unique sorted ranks
 
     # Check for any 5-card consecutive sequence
-    for i in range(len(ranks) - 4):
+    for i in range(len(ranks) - 5):
         if ranks[i + 4] - ranks[i] == 4:
             return 1
 
     # Special case: A-2-3-4-5 straight
     if {2,3,4,5,14}.issubset(ranks):
-        return 2
+        return 1
 
     return 0
 

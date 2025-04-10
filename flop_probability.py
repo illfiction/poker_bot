@@ -1,6 +1,6 @@
-import numpy as np
+
 from deck import deck
-from hand_checker import flush_checker,straight_checker,is_two_pair,is_single_pair,is_full_house,is_four_of_a_kind,is_three_of_a_kind
+from hand_checker import is_royal_flush,is_flush,is_straight,is_two_pair,is_single_pair,is_full_house,is_four_of_a_kind,is_three_of_a_kind
 from tiebreaker import tiebreaker
 
 
@@ -57,19 +57,16 @@ def flop_probability(pocket_cards,flop_cards):
                 # 2 diff cards from remaining cards to find probability
 
 
-                is_flush = flush_checker(user_hand)
-                is_straight = (straight_checker(user_hand) != 0)
-                is_royal_straight = (straight_checker(user_hand) == 2)
+
                 '''
-                    used this way just so it is more efficient as flush straight are checked multiple times as there are many sub cases
                     the following if elif ladder is implemented so that in a particular 7 card set only the highest hand win, more efficient
                 '''
 
-                if is_flush and is_royal_straight:
+                if is_royal_flush(user_hand):
                     hands_tally_counter['Royal Flush'] += 1
                     user_hand_score = 10
                     print('Royal Flush')
-                elif is_straight and is_flush:
+                elif is_straight(user_hand) and is_flush(user_hand):
                     hands_tally_counter['Straight Flush'] += 1
                     print('Straight Flush')
                     user_hand_score = 9
@@ -81,11 +78,11 @@ def flop_probability(pocket_cards,flop_cards):
                     hands_tally_counter['Full House'] += 1
                     print('Full House')
                     user_hand_score = 7
-                elif is_flush:
+                elif is_flush(user_hand):
                     hands_tally_counter['Flush'] += 1
                     print('Flush')
                     user_hand_score = 6
-                elif is_straight:
+                elif is_straight(user_hand):
                     hands_tally_counter['Straight'] += 1
                     print('Straight')
                     user_hand_score = 5
@@ -131,17 +128,11 @@ def flop_probability(pocket_cards,flop_cards):
                             print("Opp hand:",opp_hand)
                             print("Opp cards:",flop_cards,opp_card1,opp_card2,card1,card2)
 
-                            is_flush = flush_checker(opp_hand)
-                            # print("flush:", is_flush)
-                            # print(straight_checker(opp_hand))
-                            is_straight = (straight_checker(opp_hand) != 0)
-                            # print("straight:", is_straight)
-                            is_royal_straight = (straight_checker(opp_hand) == 2)
 
-                            if is_flush and is_royal_straight:
+                            if is_royal_flush(opp_hand):
                                 print('Opp got Royal Flush')
                                 opp_hand_score = 10
-                            elif is_straight and is_flush:
+                            elif is_straight(opp_hand) and is_flush(opp_hand):
                                 print('Opp got Straight Flush')
                                 opp_hand_score = 9
                             elif is_four_of_a_kind(opp_hand):
@@ -150,10 +141,10 @@ def flop_probability(pocket_cards,flop_cards):
                             elif is_full_house(opp_hand):
                                 print('Opp got Full House')
                                 opp_hand_score = 7
-                            elif is_flush:
+                            elif is_flush(opp_hand):
                                 print('Opp got Flush')
                                 opp_hand_score = 6
-                            elif is_straight:
+                            elif is_straight(opp_hand):
                                 print('Opp got Straight')
                                 opp_hand_score = 5
                             elif is_three_of_a_kind(opp_hand):
