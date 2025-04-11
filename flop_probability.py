@@ -2,7 +2,7 @@
 from deck import deck
 from hand_checker import is_royal_flush,is_flush,is_straight,is_two_pair,is_single_pair,is_full_house,is_four_of_a_kind,is_three_of_a_kind
 from tiebreaker import tiebreaker
-
+from verify_using_treys import treys_checker
 
 def flop_probability(pocket_cards,flop_cards):
 
@@ -163,11 +163,23 @@ def flop_probability(pocket_cards,flop_cards):
                             if user_hand_score > opp_hand_score:
                                 print("User Won")
                                 win_tally_counter += 1
+                                if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 1:
+                                    print("matches with treys")
+                                else:
+                                    print("does not matches with treys")
                             elif user_hand_score < opp_hand_score:
                                 print("User Lost")
+                                if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 0:
+                                    print("matches with treys")
+                                else:
+                                    print("does not matches with treys")
                             else:
                                 print("sort of Tie")
                                 win_tally_counter += tiebreaker(user_hand, opp_hand, user_hand_score) or 0.0
+                                if tiebreaker(user_hand, opp_hand, user_hand_score) == treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2):
+                                    print("matches with treys")
+                                else:
+                                    print("does not matches with treys")
 
     #end of for loops
 

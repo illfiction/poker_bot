@@ -4,7 +4,7 @@ class Card:
         self.suit = suit
 
     def __repr__(self):
-        rank_str = {11: 'j', 12: 'q', 13: 'k', 14: 'a'}.get(self.rank, str(self.rank))
+        rank_str = {11: 'J', 12: 'Q', 13: 'K', 14: 'A',10: 'T'}.get(self.rank, str(self.rank))
         return f"{rank_str}{self.suit}"
 
     def __eq__(self, other):
@@ -12,3 +12,6 @@ class Card:
 
     def __hash__(self):
         return hash((self.rank, self.suit))
+    def treys_format(self):
+        rank_str = {11: 'J',12: 'Q',13: 'K',14: 'A'}.get(self.rank, str(self.rank))
+        return f"{self.rank_str}{self.suit}"
