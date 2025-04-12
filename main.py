@@ -9,7 +9,7 @@ from parse_cards import parse_cards
 from  flop_probability import flop_probability
 
 # pre-flop
-input_str = "ah kh"
+input_str = "6h Kc"
 # input_str = input("Enter your cards:")
 pocket_cards = parse_cards(input_str)
 # print(pocket_cards[0])
@@ -21,7 +21,7 @@ if len(pocket_cards) != 2:
 #TODO : calculate pre-flop probability
 #pre-flop probability will take too long to run
 
-input_str = "qh jh 10h"
+input_str = "8d 5s Ac"
 # input_str = input("Enter flop cards:")
 flop_cards = parse_cards(input_str)
 if len(flop_cards) != 3:

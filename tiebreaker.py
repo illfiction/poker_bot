@@ -17,7 +17,7 @@ def find_better_name(set1, set2, count):
             return 0
         list1.remove(max(list1))
         list2.remove(max(list2))
-    print("tie")
+    # print("tie")
     return 0.5
 
 
@@ -163,7 +163,7 @@ def full_house_tiebreaker(user_hand, opp_hand):
             if max(user_triples_list[i]) < max(opp_triples_list[i]):
                 return 0
             else:
-                print("TIE")
+                # print("TIE")
                 return 0.5
 
 
@@ -172,20 +172,19 @@ def straight_tiebreaker(user_hand, opp_hand):
     user_ranks = sorted(set(card.rank for card in user_hand))
     opp_ranks = sorted(set(card.rank for card in opp_hand))
 
-    print(user_ranks)
-    print(opp_ranks)
-    print(range(len(user_ranks)))
+
     for i in range(len(user_ranks)-4):
-        print(i)
         if user_ranks[i+4] - user_ranks[i] == 4:
             user_straight_high_card = user_ranks[i]
-
+    if max(user_ranks) == 14:
+        user_straight_high_card = max(user_ranks)
     for i in range(len(opp_ranks)-4):
         if opp_ranks[i+4] - opp_ranks[i] == 4:
             opp_straight_high_card = opp_ranks[i]
-
+    if max(opp_ranks) == 14:
+        opp_straight_high_card = max(opp_ranks)
     if user_straight_high_card == opp_straight_high_card:
-        print("TIE")
+        # print("TIE")
         return 0.5
     elif user_straight_high_card >= opp_straight_high_card:
         return 1
@@ -212,7 +211,7 @@ def flush_tiebreaker(user_hand, opp_hand):
 def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if user looses
 
     if hand_rank == 10:     #Royal Flush
-        print("TIE")
+        # print("TIE")
         return 0.5 #always tie in royal flush
     elif hand_rank == 9:    #Straight Flush
         return straight_tiebreaker(user_hand, opp_hand)

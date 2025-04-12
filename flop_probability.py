@@ -21,7 +21,6 @@ def flop_probability(pocket_cards,flop_cards):
     #checking if total no of cards given is proper
 
     remaining_cards = [card for card in deck if card not in opened_cards]
-    print(remaining_cards)
 
     hands_tally_counter = {
         'Royal Flush': 0,
@@ -44,14 +43,15 @@ def flop_probability(pocket_cards,flop_cards):
         for card2 in remaining_cards:
 
             if len({card1, card2}) < 2:
-                print("##Card1 is equal to card2", card1, card2)
+                # print("##Card1 is equal to card2", card1, card2)
+                ...
 
             else:
                 total_count += 1  # TOTAL COUNT HAS BEEN INCREMENTED.
 
 
                 user_hand = opened_cards.union(set([card1, card2]))
-                print("NEW CASE with cards:",opened_cards,card1,card2)
+                # print("NEW CASE with cards:",opened_cards,card1,card2)
                 # set that contains one possible cases with 2 random cards to fulfill 7 cards that are visible to player
                 # use that set to check if 5 best cards for a hand or not in order of hands
                 # 2 diff cards from remaining cards to find probability
@@ -65,121 +65,124 @@ def flop_probability(pocket_cards,flop_cards):
                 if is_royal_flush(user_hand):
                     hands_tally_counter['Royal Flush'] += 1
                     user_hand_score = 10
-                    print('Royal Flush')
+                    # print('Royal Flush')
                 elif is_straight(user_hand) and is_flush(user_hand):
                     hands_tally_counter['Straight Flush'] += 1
-                    print('Straight Flush')
+                    # print('Straight Flush')
                     user_hand_score = 9
                 elif is_four_of_a_kind(user_hand):
                     hands_tally_counter['Four of a Kind'] += 1
-                    print('Four of a Kind')
+                    # print('Four of a Kind')
                     user_hand_score = 8
                 elif is_full_house(user_hand):
                     hands_tally_counter['Full House'] += 1
-                    print('Full House')
+                    # print('Full House')
                     user_hand_score = 7
                 elif is_flush(user_hand):
                     hands_tally_counter['Flush'] += 1
-                    print('Flush')
+                    # print('Flush')
                     user_hand_score = 6
                 elif is_straight(user_hand):
                     hands_tally_counter['Straight'] += 1
-                    print('Straight')
+                    # print('Straight')
                     user_hand_score = 5
                 elif is_three_of_a_kind(user_hand):
                     hands_tally_counter['Three of a Kind'] += 1
-                    print('Three of a Kind')
+                    # print('Three of a Kind')
                     user_hand_score = 4
                 elif is_two_pair(user_hand):
                     hands_tally_counter['Two Pair'] += 1
-                    print('Two Pair')
+                    # print('Two Pair')
                     user_hand_score = 3
                 elif is_single_pair(user_hand):
                     hands_tally_counter['Single Pair'] += 1
-                    print('Single Pair')
+                    # print('Single Pair')
                     user_hand_score = 2
                 else:
                     hands_tally_counter['No Pair'] += 1
-                    print('No Pair')
+                    # print('No Pair')
                     user_hand_score = 1
 
 
-            print("Remaining cards:",remaining_cards)
+            # print("Remaining cards:",remaining_cards)
 
 
             for opp_card1 in remaining_cards:
                 if len({opp_card1,card2,card1}) < 3:
-                    print("duplicate",card1,card2,opp_card1)
+                    # print("duplicate",card1,card2,opp_card1)
+                    ...
 
                 else:
                     for opp_card2 in remaining_cards:
 
                         if len({opp_card1, opp_card2,card1 ,card2}) < 4:
-                            print("There are duplicate cards:",opp_card1,opp_card2,card1,card2)
+                            # print("There are duplicate cards:",opp_card1,opp_card2,card1,card2)
+                            ...
 
                         else:
 
                             total_total_count += 1
 
-                            print("Remaining cards:",remaining_cards)
+                            # print("Remaining cards:",remaining_cards)
                             flop_cards_set = set(flop_cards)
 
                             opp_hand = flop_cards_set.union(set([opp_card1, opp_card2, card1, card2]))
-                            print("Opp hand:",opp_hand)
-                            print("Opp cards:",flop_cards,opp_card1,opp_card2,card1,card2)
+                            # print("Opp hand:",opp_hand)
+                            # print("Opp cards:",flop_cards,opp_card1,opp_card2,card1,card2)
 
 
                             if is_royal_flush(opp_hand):
-                                print('Opp got Royal Flush')
+                                # print('Opp got Royal Flush')
                                 opp_hand_score = 10
                             elif is_straight(opp_hand) and is_flush(opp_hand):
-                                print('Opp got Straight Flush')
+                                # print('Opp got Straight Flush')
                                 opp_hand_score = 9
                             elif is_four_of_a_kind(opp_hand):
-                                print('Opp got Four of a Kind')
+                                # print('Opp got Four of a Kind')
                                 opp_hand_score = 8
                             elif is_full_house(opp_hand):
-                                print('Opp got Full House')
+                                # print('Opp got Full House')
                                 opp_hand_score = 7
                             elif is_flush(opp_hand):
-                                print('Opp got Flush')
+                                # print('Opp got Flush')
                                 opp_hand_score = 6
                             elif is_straight(opp_hand):
-                                print('Opp got Straight')
+                                # print('Opp got Straight')
                                 opp_hand_score = 5
                             elif is_three_of_a_kind(opp_hand):
-                                print('Opp got Three of a Kind')
+                                # print('Opp got Three of a Kind')
                                 opp_hand_score = 4
                             elif is_two_pair(opp_hand):
-                                print('Opp got Two Pair')
+                                # print('Opp got Two Pair')
                                 opp_hand_score = 3
                             elif is_single_pair(opp_hand):
-                                print('Opp got Single Pair')
+                                # print('Opp got Single Pair')
                                 opp_hand_score = 2
                             else:
-                                print('Opp got No Pair')
+                                # print('Opp got No Pair')
                                 opp_hand_score = 1
 
                             if user_hand_score > opp_hand_score:
-                                print("User Won")
+                                # print("User Won")
                                 win_tally_counter += 1
-                                if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 1:
-                                    print("matches with treys")
-                                else:
-                                    print("does not matches with treys")
+                                # if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 1:
+                                #     print("matches with treys")
+                                # else:
+                                #     print("does not matches with treys")
                             elif user_hand_score < opp_hand_score:
-                                print("User Lost")
-                                if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 0:
-                                    print("matches with treys")
-                                else:
-                                    print("does not matches with treys")
+                                ...
+                                # print("User Lost")
+                                # if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 0:
+                                #     print("matches with treys")
+                                # else:
+                                #     print("does not matches with treys")
                             else:
-                                print("sort of Tie")
+                                # print("sort of Tie")
                                 win_tally_counter += tiebreaker(user_hand, opp_hand, user_hand_score) or 0.0
-                                if tiebreaker(user_hand, opp_hand, user_hand_score) == treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2):
-                                    print("matches with treys")
-                                else:
-                                    print("does not matches with treys")
+                                # if tiebreaker(user_hand, opp_hand, user_hand_score) == treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2):
+                                #     print("matches with treys")
+                                # else:
+                                #     print("does not matches with treys")
 
     #end of for loops
 
