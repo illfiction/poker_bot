@@ -1,9 +1,8 @@
-#this file is used to decide who wins if both have the same hand rank
+#this file is used to decide who wins if both have the same hand score Eg both user and opp have single pair,etc
 
 
 from collections import Counter
 
-from parse_cards import parse_cards
 
 def find_better_name(set1, set2, count):
 
@@ -30,14 +29,38 @@ def one_pair_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
     opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
 
+    user_pair_rank = 0
+    opp_pair_rank = 0
+
+    temp_user_hand = set()
+    temp_opp_hand = set()
+
     for user_rank in user_rank_counts:
-        for opp_rank in opp_rank_counts:
-            if user_rank == opp_rank:
-                return high_card_tiebreaker(user_hand, opp_hand)
-            else:
-                count = 3
-                return find_better_name(user_hand, opp_hand, count)
-    return 0.5
+        if user_rank_counts[user_rank] == 2:
+            if user_rank_counts[user_rank] > user_pair_rank:
+                user_pair_rank = user_rank
+        else:
+            for card in user_hand:
+                if card.rank == user_rank:
+                    temp_user_hand.add(card)
+
+    for opp_rank in opp_rank_counts:
+        if opp_rank_counts[opp_rank] == 2:
+            if opp_rank_counts[opp_rank] > opp_pair_rank:
+                opp_pair_rank = opp_rank
+        else:
+            for card in opp_hand:
+                if card.rank == opp_rank:
+                    temp_opp_hand.add(card)
+
+
+    if user_pair_rank == opp_pair_rank:
+        return find_better_name(temp_user_hand, temp_opp_hand, count = 3)
+    elif user_pair_rank > opp_pair_rank:
+        return 1
+    else:
+        return 0
+
 
 def two_pair_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
@@ -46,125 +69,117 @@ def two_pair_tiebreaker(user_hand, opp_hand):
     user_pairs_list = []
     opp_pairs_list = []
 
+    temp_user_hand = set()
+    temp_opp_hand = set()
+
     for user_rank in user_rank_counts:
-        if user_rank == 2:
+        if user_rank_counts[user_rank] == 2:
             user_pairs_list.append(user_rank)
-            to_remove = {card for card in user_hand if card.rank == user_rank}
-            user_hand.difference_update(to_remove)
+        else:
+            for card in user_hand:
+                if card.rank == user_rank:
+                    temp_user_hand.add(card)
 
     for opp_rank in opp_rank_counts:
-        if opp_rank == 2:
+        if opp_rank_counts[opp_rank] == 2:
             opp_pairs_list.append(opp_rank)
-            to_remove = {card for card in opp_hand if card.rank == opp_rank}
-            opp_hand.difference_update(to_remove)
+        else:
+            for card in opp_hand:
+                if card.rank == opp_rank:
+                    temp_opp_hand.add(card)
 
-    for i in range(min(len(user_pairs_list), len(opp_pairs_list))):
-        if max(user_pairs_list) > max(opp_pairs_list):
+    user_pairs_list.sort(reverse=True)
+    opp_pairs_list.sort(reverse=True)
+
+    if user_pairs_list[0] > opp_pairs_list[0]:
+        return 1
+    elif user_pairs_list[0] < opp_pairs_list[0]:
+        return 0
+    else:
+        if user_pairs_list[1] > opp_pairs_list[1]:
             return 1
-        elif max(user_pairs_list) < max(opp_pairs_list):
+        elif user_pairs_list[1] < opp_pairs_list[1]:
             return 0
         else:
-            count = 1
-            return find_better_name(user_hand, opp_hand, count)
+            return find_better_name(temp_user_hand, temp_opp_hand, count = 1)
+
 
 
 def three_of_a_kind_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-
     opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
 
-    user_triples_list = []
-    opp_triples_list = []
+    user_triples_rank = 0
+    opp_triples_rank = 0
+
+    temp_user_hand = set()
+    temp_opp_hand = set()
 
     for user_rank in user_rank_counts:
-        if user_rank == 3:
-            user_triples_list.append(user_rank)
-            to_remove = {card for card in user_hand if card.rank == user_rank}
-            user_hand.difference_update(to_remove)
+        if user_rank_counts[user_rank] == 3:
+            if user_rank_counts[user_rank] > user_triples_rank:
+                user_triples_rank = user_rank
+        else:
+            for card in user_hand:
+                if card.rank == user_rank:
+                    temp_user_hand.add(card)
 
     for opp_rank in opp_rank_counts:
-        if opp_rank == 3:
-            opp_triples_list.append(opp_rank)
-            to_remove = {card for card in opp_hand if card.rank == opp_rank}
-            opp_hand.difference_update(to_remove)
-
-    for i in range(min(len(user_triples_list), len(opp_triples_list))):
-        if max(user_triples_list) > max(opp_triples_list):
-            return 1
-        elif max(user_triples_list) < max(opp_triples_list):
-            return 0
+        if opp_rank_counts[opp_rank] == 3:
+            if opp_rank_counts[opp_rank] > opp_triples_rank:
+                opp_triples_rank = opp_rank
         else:
-            count = 2
-            return find_better_name(user_hand, opp_hand, count)
+            for card in opp_hand:
+                if card.rank == opp_rank:
+                    temp_opp_hand.add(card)
+
+    if user_triples_rank == opp_triples_rank:
+        return find_better_name(temp_user_hand, temp_opp_hand, count = 2)
+    elif user_triples_rank > opp_triples_rank:
+        return 1
+    else:
+        return 0
+
 
 
 def four_of_a_kind_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-
     opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
 
-    user_quadruples_list = []
-    opp_triples_list = []
+    user_quadruples_rank = 0
+    opp_quadruples_rank = 0
+
+    temp_user_hand = set()
+    temp_opp_hand = set()
 
     for user_rank in user_rank_counts:
-        if user_rank.value == 4:
-            user_quadruples_list.append(user_rank)
-            user_hand.remove(user_rank)
+        if user_rank_counts[user_rank] == 4:
+            if user_rank_counts[user_rank] > user_quadruples_rank:
+                user_quadruples_rank = user_rank
+        else:
+            for card in user_hand:
+                if card.rank == user_rank:
+                    temp_user_hand.add(card)
 
     for opp_rank in opp_rank_counts:
-        if opp_rank.value == 4:
-            opp_triples_list.append(opp_rank)
-            opp_hand.remove(opp_rank)
-
-    for i in range(max(len(user_quadruples_list), len(opp_triples_list))):
-        if max(user_quadruples_list[i]) > max(opp_triples_list[i]):
-            return 1
-        elif max(user_quadruples_list[i]) < max(opp_triples_list[i]):
-            return 0
+        if opp_rank_counts[opp_rank] == 4:
+            if opp_rank_counts[opp_rank] > opp_quadruples_rank:
+                opp_quadruples_rank = opp_rank
         else:
-            count = 1
-            return find_better_name(user_hand, opp_hand, count)
+            for card in opp_hand:
+                if card.rank == opp_rank:
+                    temp_opp_hand.add(card)
+
+    if user_quadruples_rank == opp_quadruples_rank:
+        return find_better_name(temp_user_hand, temp_opp_hand, count = 1)
+    elif user_quadruples_rank > opp_quadruples_rank:
+        return 1
+    else:
+        return 0
 
 
 def full_house_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
 
-    user_triples_list = []
-    opp_triples_list = []
-
-    user_doubles_list = []
-    opp_doubles_list = []
-
-    for user_rank in user_rank_counts:
-        if user_rank.value == 3:
-            user_triples_list.append(user_rank)
-            user_hand.remove(user_rank)
-        if user_rank.value == 2:
-            user_doubles_list.append(user_rank)
-            user_hand.remove(user_rank)
-
-    for opp_rank in opp_rank_counts:
-        if opp_rank.value == 3:
-            opp_triples_list.append(opp_rank)
-            opp_hand.remove(opp_rank)
-        if opp_rank.value == 2:
-            opp_doubles_list.append(opp_rank)
-            opp_hand.remove(opp_rank)
-
-    for i in range(max(len(user_triples_list), len(opp_triples_list))):
-        if max(user_triples_list[i]) > max(opp_triples_list[i]):
-            return 1
-        elif max(user_triples_list[i]) < max(opp_triples_list[i]):
-            return 0
-        else:
-            if max(user_triples_list[i]) > max(opp_triples_list[i]):
-                return 1
-            if max(user_triples_list[i]) < max(opp_triples_list[i]):
-                return 0
-            else:
-                # print("TIE")
-                return 0.5
 
 
 def straight_tiebreaker(user_hand, opp_hand):
@@ -209,7 +224,6 @@ def flush_tiebreaker(user_hand, opp_hand):
 
 
 def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if user looses
-
     if hand_rank == 10:     #Royal Flush
         # print("TIE")
         return 0.5 #always tie in royal flush
@@ -234,14 +248,16 @@ def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if u
 
 # if __name__ == '__main__':
 #
-#     pocket_cards = parse_cards(input("Enter pocket cards: "))
-#     flop_cards = parse_cards(input("Enter flop cards: "))
-#     opp_cards = parse_cards(input("Enter opp cards: "))
+#     pocket_cards = parse_cards("6h kc")
+#     board_cards = parse_cards("8d 5s ac as 2s")
+#     opp_cards = parse_cards("3s 7d")
+#     print(pocket_cards,board_cards,opp_cards)
+#     user_hand = set(pocket_cards + board_cards)
+#     opp_hand = set(board_cards + opp_cards)
 #
-#     user_hand = set(pocket_cards + flop_cards)
-#     opp_hand = set(flop_cards + opp_cards)
+#     print(user_hand,opp_hand)
 #
-#     print(high_card_tiebreaker(user_hand, opp_hand))
+#     print(one_pair_tiebreaker(user_hand, opp_hand))
 
 # Enter pocket cards: 1s 2s
 # Enter flop cards: 5c 6h 7d 10d 5h

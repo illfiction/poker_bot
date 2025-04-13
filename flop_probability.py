@@ -1,4 +1,4 @@
-
+import sys
 from deck import deck
 from hand_checker import is_royal_flush,is_flush,is_straight,is_two_pair,is_single_pair,is_full_house,is_four_of_a_kind,is_three_of_a_kind
 from tiebreaker import tiebreaker
@@ -48,7 +48,7 @@ def flop_probability(pocket_cards,flop_cards):
 
             else:
                 total_count += 1  # TOTAL COUNT HAS BEEN INCREMENTED.
-
+                print("Total Count:",total_count)
 
                 user_hand = opened_cards.union(set([card1, card2]))
                 # print("NEW CASE with cards:",opened_cards,card1,card2)
@@ -122,6 +122,7 @@ def flop_probability(pocket_cards,flop_cards):
                         else:
 
                             total_total_count += 1
+                            print("Total Total Count:",total_total_count)
 
                             # print("Remaining cards:",remaining_cards)
                             flop_cards_set = set(flop_cards)
@@ -165,24 +166,43 @@ def flop_probability(pocket_cards,flop_cards):
                             if user_hand_score > opp_hand_score:
                                 # print("User Won")
                                 win_tally_counter += 1
-                                # if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 1:
-                                #     print("matches with treys")
-                                # else:
-                                #     print("does not matches with treys")
+                                if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 1:
+                                    # print("matches with treys")
+                                    ...
+                                else:
+                                    print("me:user won")
+                                    print("treys:",treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2))
+                                    print("does not matches with treys")
+                                    print(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
+                                    print(user_hand_score,opp_hand_score)
+                                    sys.exit(1)
                             elif user_hand_score < opp_hand_score:
                                 ...
                                 # print("User Lost")
-                                # if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 0:
-                                #     print("matches with treys")
-                                # else:
-                                #     print("does not matches with treys")
+                                if treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2) == 0:
+                                    # print("matches with treys")
+                                    ...
+                                else:
+                                    print("me:user lost")
+                                    print("treys:",treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2))
+                                    print("does not matches with treys")
+                                    print(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
+                                    print(user_hand_score,opp_hand_score)
+                                    sys.exit(1)
                             else:
                                 # print("sort of Tie")
-                                win_tally_counter += tiebreaker(user_hand, opp_hand, user_hand_score) or 0.0
-                                # if tiebreaker(user_hand, opp_hand, user_hand_score) == treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2):
-                                #     print("matches with treys")
-                                # else:
-                                #     print("does not matches with treys")
+                                tiebreaker_score = tiebreaker(user_hand, opp_hand, user_hand_score)
+                                treys_score = treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
+                                win_tally_counter += tiebreaker_score or 0.0
+                                if tiebreaker_score == treys_score:
+                                    # print("matches with treys")
+                                    ...
+                                else:
+                                    print("me:",tiebreaker_score)
+                                    print("treys:",treys_score)
+                                    print("does not matches with treys")
+                                    print(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
+                                    print(user_hand_score,opp_hand_score)
 
     #end of for loops
 

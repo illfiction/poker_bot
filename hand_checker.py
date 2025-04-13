@@ -82,5 +82,5 @@ def is_full_house(card_set):
     rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
-    return counts.count(3) == 1 and counts.count(2) >= 1
+    return counts.count(3) + counts.count(2) >= 2 and counts.count(3) > 1
 
