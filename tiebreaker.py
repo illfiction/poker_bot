@@ -1,6 +1,6 @@
 #this file is used to decide who wins if both have the same hand score Eg both user and opp have single pair,etc
 
-
+from parse_cards import parse_cards
 from collections import Counter
 
 
@@ -63,47 +63,7 @@ def one_pair_tiebreaker(user_hand, opp_hand):
 
 
 def two_pair_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
-
-    user_pairs_list = []
-    opp_pairs_list = []
-
-    temp_user_hand = set()
-    temp_opp_hand = set()
-
-    for user_rank in user_rank_counts:
-        if user_rank_counts[user_rank] == 2:
-            user_pairs_list.append(user_rank)
-        else:
-            for card in user_hand:
-                if card.rank == user_rank:
-                    temp_user_hand.add(card)
-
-    for opp_rank in opp_rank_counts:
-        if opp_rank_counts[opp_rank] == 2:
-            opp_pairs_list.append(opp_rank)
-        else:
-            for card in opp_hand:
-                if card.rank == opp_rank:
-                    temp_opp_hand.add(card)
-
-    user_pairs_list.sort(reverse=True)
-    opp_pairs_list.sort(reverse=True)
-
-    if user_pairs_list[0] > opp_pairs_list[0]:
-        return 1
-    elif user_pairs_list[0] < opp_pairs_list[0]:
-        return 0
-    else:
-        if user_pairs_list[1] > opp_pairs_list[1]:
-            return 1
-        elif user_pairs_list[1] < opp_pairs_list[1]:
-            return 0
-        else:
-            return find_better_name(temp_user_hand, temp_opp_hand, count = 1)
-
-
+    ...
 
 def three_of_a_kind_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
@@ -179,8 +139,57 @@ def four_of_a_kind_tiebreaker(user_hand, opp_hand):
 
 
 def full_house_tiebreaker(user_hand, opp_hand):
+    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = Counter(card.rank for card in opp_hand)   # Extract ranks and count occurrences
 
+    user_triples_rank = 0
+    opp_triples_rank = 0
 
+    user_doubles_rank = 0
+    opp_doubles_rank = 0
+
+    temp_user_hand = set()
+    temp_opp_hand = set()
+
+    for user_rank in user_rank_counts:
+        if user_rank_counts[user_rank] == 3:
+            if user_rank_counts[user_rank] > user_triples_rank:
+                user_triples_rank = user_rank
+            else:
+                user_doubles_rank = user_rank
+        elif user_rank_counts[user_rank] == 2:
+            if user_rank_counts[user_rank] > user_doubles_rank:
+                user_doubles_rank = user_rank
+        else:
+            for card in user_hand:
+                if card.rank == user_rank:
+                    temp_user_hand.add(card)
+
+    for opp_rank in opp_rank_counts:
+        if opp_rank_counts[opp_rank] == 3:
+            if opp_rank_counts[opp_rank] > opp_triples_rank:
+                opp_triples_rank = opp_rank
+            else:
+                opp_doubles_rank = opp_rank
+        elif opp_rank_counts[opp_rank] == 2:
+            if opp_rank_counts[opp_rank] > opp_triples_rank:
+                opp_doubles_rank = opp_rank
+        else:
+            for card in opp_hand:
+                if card.rank == opp_rank:
+                    temp_opp_hand.add(card)
+
+    if user_triples_rank == opp_triples_rank:
+        if user_doubles_rank == opp_doubles_rank:
+            return 0.5
+        elif user_doubles_rank > opp_doubles_rank:
+            return 1
+        else:
+            return 0
+    elif user_triples_rank > opp_triples_rank:
+        return 1
+    else:
+        return 0
 
 def straight_tiebreaker(user_hand, opp_hand):
 
@@ -246,18 +255,18 @@ def tiebreaker(user_hand,opp_hand,hand_rank): #returns 1 is user wins and 0 if u
     elif hand_rank == 1:    #High Card
         return high_card_tiebreaker(user_hand, opp_hand)
 
-# if __name__ == '__main__':
-#
-#     pocket_cards = parse_cards("6h kc")
-#     board_cards = parse_cards("8d 5s ac as 2s")
-#     opp_cards = parse_cards("3s 7d")
-#     print(pocket_cards,board_cards,opp_cards)
-#     user_hand = set(pocket_cards + board_cards)
-#     opp_hand = set(board_cards + opp_cards)
-#
-#     print(user_hand,opp_hand)
-#
-#     print(one_pair_tiebreaker(user_hand, opp_hand))
+if __name__ == '__main__':
+
+    pocket_cards = parse_cards("6h kc")
+    board_cards = parse_cards("8d 5s ac as ks")
+    opp_cards = parse_cards("8s kd")
+    print(pocket_cards,board_cards,opp_cards)
+    user_hand = set(pocket_cards + board_cards)
+    opp_hand = set(board_cards + opp_cards)
+
+    print(user_hand,opp_hand)
+
+    print(one_pair_tiebreaker(user_hand, opp_hand))
 
 # Enter pocket cards: 1s 2s
 # Enter flop cards: 5c 6h 7d 10d 5h

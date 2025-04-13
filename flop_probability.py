@@ -122,7 +122,7 @@ def flop_probability(pocket_cards,flop_cards):
                         else:
 
                             total_total_count += 1
-                            print("Total Total Count:",total_total_count)
+                            print("Percentage done",total_total_count/42807.60)
 
                             # print("Remaining cards:",remaining_cards)
                             flop_cards_set = set(flop_cards)
@@ -203,6 +203,7 @@ def flop_probability(pocket_cards,flop_cards):
                                     print("does not matches with treys")
                                     print(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
                                     print(user_hand_score,opp_hand_score)
+                                    sys.exit(1)
 
     #end of for loops
 
