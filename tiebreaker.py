@@ -63,7 +63,52 @@ def one_pair_tiebreaker(user_hand, opp_hand):
 
 
 def two_pair_tiebreaker(user_hand, opp_hand):
-    ...
+    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
+
+    user_pair_ranks = [0,0]     #This arrays first element contains the max element of the pairs will use this to compare
+    opp_pair_ranks = [0,0]
+
+    temp_user_hand = set()
+    temp_opp_hand = set()
+
+    for user_rank in user_rank_counts:
+        if user_rank_counts[user_rank] == 2:
+            if user_rank > user_pair_ranks[0]:
+                user_pair_ranks[1] = user_pair_ranks[0]
+                user_pair_ranks[0] = user_rank
+            elif user_rank > user_pair_ranks[1]:
+                user_pair_ranks[1] = user_rank
+
+    for card in user_hand:
+        if card.rank != user_pair_ranks[0] and card.rank != user_pair_ranks[1]:
+            temp_user_hand.add(card)
+
+    for opp_rank in opp_rank_counts:
+        if opp_rank_counts[opp_rank] == 2:
+            if opp_rank >= opp_pair_ranks[0]:
+                opp_pair_ranks[1] = opp_pair_ranks[0]
+                opp_pair_ranks[0] = opp_rank
+            elif opp_rank > opp_pair_ranks[1]:
+                opp_pair_ranks[1] = opp_rank
+
+    for card in opp_hand:
+        if card.rank != user_pair_ranks[0] and card.rank != user_pair_ranks[1]:
+            temp_opp_hand.add(card)
+
+    if user_pair_ranks[0] > opp_pair_ranks[0]:
+        return 1
+    elif user_pair_ranks[0] < opp_pair_ranks[0]:
+        return 0
+    else:
+        if user_pair_ranks[1] > opp_pair_ranks[1]:
+            return 1
+        elif user_pair_ranks[1] < opp_pair_ranks[1]:
+            return 0
+        else:
+            return find_better_name(temp_user_hand, temp_opp_hand, count = 1)
+
+
 
 def three_of_a_kind_tiebreaker(user_hand, opp_hand):
     user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
@@ -266,7 +311,7 @@ if __name__ == '__main__':
 
     print(user_hand,opp_hand)
 
-    print(one_pair_tiebreaker(user_hand, opp_hand))
+    print(two_pair_tiebreaker(user_hand, opp_hand))
 
 # Enter pocket cards: 1s 2s
 # Enter flop cards: 5c 6h 7d 10d 5h
