@@ -28,8 +28,3 @@ def parse_cards(input_str):
         parsed_cards.append(output_card)
 
     return parsed_cards
-
-if __name__ == "__main__":
-    input_str = "js 3c 4h"
-    output = parse_cards(input_str)
-    print(output)

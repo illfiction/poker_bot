@@ -12,6 +12,3 @@ class Card:
 
     def __hash__(self):
         return hash((self.rank, self.suit))
-    def treys_format(self):
-        rank_str = {11: 'J',12: 'Q',13: 'K',14: 'A'}.get(self.rank, str(self.rank))
-        return f"{self.rank_str}{self.suit}"
