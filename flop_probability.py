@@ -3,7 +3,7 @@ import os
 from deck import deck
 from hand_checker import is_royal_flush,is_flush,is_straight,is_two_pair,is_single_pair,is_full_house,is_four_of_a_kind,is_three_of_a_kind
 from tiebreaker import tiebreaker
-from verify_using_treys import treys_checker
+# from verify_using_treys import treys_checker
 
 def flop_probability(pocket_cards,flop_cards,pocket_cards_str,flop_cards_str):
 
@@ -194,7 +194,7 @@ def flop_probability(pocket_cards,flop_cards,pocket_cards_str,flop_cards_str):
                             else:
                                 # print("sort of Tie")
                                 tiebreaker_score = tiebreaker(user_hand, opp_hand, user_hand_score)
-                                treys_score = treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
+                                # treys_score = treys_checker(pocket_cards,flop_cards,card1,card2,opp_card1,opp_card2)
                                 win_tally_counter += tiebreaker_score or 0.0
                                 # if tiebreaker_score == treys_score:
                                 #     # print("matches with treys")

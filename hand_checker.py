@@ -20,6 +20,23 @@ def is_royal_flush(card_set):
     return 0
 
 
+def is_straight_flush(card_set):
+    suit_counts = {suit: 0 for suit in "shdc"}  # Initialize suit count dictionary
+
+    for card in card_set:
+        suit_counts[card.suit] += 1  # Increment suit count
+
+    if max(suit_counts) < 5:
+        return 0
+    max_suit = max(suit_counts, key=suit_counts.get)
+
+    flush_cards = set()
+    for card in card_set:
+        if card.suit == max_suit:
+            flush_cards.add(card)
+
+    return is_straight(flush_cards)
+
 
 def is_flush(card_set):
     suit_counts = {suit: 0 for suit in "shdc"}  # Initialize suit count dictionary
