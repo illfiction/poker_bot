@@ -19,7 +19,6 @@ if len(pocket_cards) != 2:
     sys.exit(1)
 
 # pre-flop_probability
-#TODO : calculate pre-flop probability
 #pre-flop probability will take too long to run
 
 flop_cards_str = "2s 5d 6d"

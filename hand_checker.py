@@ -25,16 +25,14 @@ def is_straight_flush(card_set):
 
     for card in card_set:
         suit_counts[card.suit] += 1  # Increment suit count
-
-    if max(suit_counts) < 5:
-        return 0
     max_suit = max(suit_counts, key=suit_counts.get)
 
     flush_cards = set()
     for card in card_set:
         if card.suit == max_suit:
             flush_cards.add(card)
-
+    if len(flush_cards) < 5:
+        return 0
     return is_straight(flush_cards)
 
 
