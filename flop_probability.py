@@ -1,5 +1,3 @@
-import sys
-import os
 from deck import deck
 from hand_checker import *
 from tiebreaker import tiebreaker
@@ -27,7 +25,7 @@ def get_hand_score(hand):
     else:
         return 1, 'No Pair'
 
-def flop_probability(pocket_cards,flop_cards,pocket_cards_str,flop_cards_str):
+def flop_probability(pocket_cards,flop_cards):
 
 
     opened_cards = set(pocket_cards + flop_cards) #all cards that are visible to user

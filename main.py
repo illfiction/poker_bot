@@ -1,10 +1,8 @@
 # Start of PokerBotv1
 import sys
 import time
-import os
 start = time.time()
 
-from card import Card
 from parse_cards import parse_cards
 from  flop_probability import flop_probability
 
@@ -30,7 +28,7 @@ if len(flop_cards) != 3:
 
 # print(flop_cards)
 
-flop_prob = flop_probability(pocket_cards,flop_cards,pocket_cards_str,flop_cards_str)
+flop_prob = flop_probability(pocket_cards,flop_cards)
 
 end = time.time()
 print(f"Runtime: {end - start:.4f} seconds")
