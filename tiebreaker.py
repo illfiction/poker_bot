@@ -2,6 +2,7 @@
 
 from parse_cards import parse_cards
 from collections import Counter
+from rank_counter import fast_rank_count
 
 
 def find_better_name(set1, set2, count):
@@ -26,8 +27,8 @@ def high_card_tiebreaker(user_hand, opp_hand):
 
 
 def one_pair_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
+    user_rank_counts = fast_rank_count(user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = fast_rank_count(opp_hand)  # Extract ranks and count occurrences
 
     user_pair_rank = 0
     opp_pair_rank = 0
@@ -63,8 +64,8 @@ def one_pair_tiebreaker(user_hand, opp_hand):
 
 
 def two_pair_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
+    user_rank_counts = fast_rank_count(user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = fast_rank_count(opp_hand)  # Extract ranks and count occurrences
 
     user_pair_ranks = [0,0]     #This arrays first element contains the max element of the pairs will use this to compare
     opp_pair_ranks = [0,0]
@@ -110,8 +111,8 @@ def two_pair_tiebreaker(user_hand, opp_hand):
 
 
 def three_of_a_kind_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
+    user_rank_counts = fast_rank_count(user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = fast_rank_count(opp_hand)  # Extract ranks and count occurrences
 
     user_triples_rank = 0
     opp_triples_rank = 0
@@ -146,8 +147,8 @@ def three_of_a_kind_tiebreaker(user_hand, opp_hand):
 
 
 def four_of_a_kind_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)  # Extract ranks and count occurrences
+    user_rank_counts = fast_rank_count(user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = fast_rank_count(opp_hand)  # Extract ranks and count occurrences
 
     user_quadruples_rank = 0
     opp_quadruples_rank = 0
@@ -182,8 +183,8 @@ def four_of_a_kind_tiebreaker(user_hand, opp_hand):
 
 
 def full_house_tiebreaker(user_hand, opp_hand):
-    user_rank_counts = Counter(card.rank for card in user_hand)  # Extract ranks and count occurrences
-    opp_rank_counts = Counter(card.rank for card in opp_hand)   # Extract ranks and count occurrences
+    user_rank_counts = fast_rank_count(user_hand)  # Extract ranks and count occurrences
+    opp_rank_counts = fast_rank_count(opp_hand)   # Extract ranks and count occurrences
 
     user_triples_rank = 0
     opp_triples_rank = 0

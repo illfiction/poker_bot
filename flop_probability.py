@@ -1,7 +1,6 @@
 from deck import deck
 from hand_checker import *
 from tiebreaker import tiebreaker
-import numpy as np
 
 def get_hand_score(hand):
     if is_royal_flush(hand):
@@ -40,7 +39,7 @@ def flop_probability(pocket_cards,flop_cards):
         raise ValueError("Error: Invalid input detected!")
     #checking if total no. of cards given is proper
 
-    remaining_cards = np.array([card for card in deck if card not in opened_cards])
+    remaining_cards = [card for card in deck if card not in opened_cards]
 
     hands_tally_counter = {
         'Royal Flush': 0,

@@ -1,5 +1,6 @@
 from collections import Counter
 from parse_cards import parse_cards
+from rank_counter import fast_rank_count
 
 def is_royal_flush(card_set):
     suit_counts = {suit: 0 for suit in "shdc"}  # Initialize suit count dictionary
@@ -64,35 +65,35 @@ def is_straight(card_set):
 
 
 def is_single_pair(card_set):
-    rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
+    rank_counts = fast_rank_count(card_set)  # Extract ranks and count occurrences
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
     return counts.count(2) == 1 and counts.count(1) == 5
 
 
 def is_two_pair(card_set):
-    rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
+    rank_counts = fast_rank_count(card_set)  # Extract ranks and count occurrences
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
     return counts.count(2) >= 2 and counts.count(3) == 0 and counts.count(4) == 0
 
 
 def is_three_of_a_kind(card_set):
-    rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
+    rank_counts = fast_rank_count(card_set)  # Extract ranks and count occurrences
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
     return counts.count(3) == 1 and counts.count(1) == 4
 
 
 def is_four_of_a_kind(card_set):
-    rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
+    rank_counts = fast_rank_count(card_set)  # Extract ranks and count occurrences
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
     return counts.count(4) == 1
 
 
 def is_full_house(card_set):
-    rank_counts = Counter(card.rank for card in card_set)  # Extract ranks and count occurrences
+    rank_counts = fast_rank_count(card_set)  # Extract ranks and count occurrences
     counts = list(rank_counts.values())  # Get list of rank frequencies
 
     return counts.count(3) + counts.count(2) >= 2 and counts.count(3) >= 1
